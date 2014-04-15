@@ -113,7 +113,7 @@ sub alloc_vlan {
     return -2;
   }
 
-  if($vlan_tag > 0) {
+  if(defined $vlan_tag and $vlan_tag > 0) {
     $tag = $vlan_tag;
   }else{
     $tag = $visdb->get_next_tag({domain_id => @{$domains}[0]->{'id'}, type_id => @{$type}[0]->{'id'}});
