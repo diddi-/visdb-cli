@@ -2,7 +2,6 @@
 
 use warnings;
 use strict;
-use lib '/home/diddi/git/libvis-perl/lib/';
 use Net::VIS;
 use Getopt::Long;
 
