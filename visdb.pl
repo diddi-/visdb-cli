@@ -2,10 +2,8 @@
 
 use warnings;
 use strict;
-use lib './libs';
 use Net::VIS;
 use Getopt::Long;
-use Data::Dumper;
 
 my $db_host = "localhost";
 my $db_user = "visdb";
