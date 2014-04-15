@@ -2,6 +2,7 @@
 
 use warnings;
 use strict;
+use lib '/home/diddi/git/libvis-perl/lib/';
 use Net::VIS;
 use Getopt::Long;
 
@@ -97,7 +98,7 @@ sub alloc_vlan {
   }
 
   my $domains = $visdb->get_domain({domain_name => $domain_name, domain_serial => $domain_serial});
-  my $type = $visdb->get_vlan_type({name=>$type_name});
+  my $type = $visdb->get_vlan_type({domain_name => $domain_name, name=>$type_name});
 
   if( @{$domains} <= 0 ) {
     print "'$domain_name': No such domain name\n";
@@ -124,7 +125,7 @@ sub alloc_vlan {
   }
 
   print "Allocating VLAN $tag...\n";
-  $visdb->vlan_alloc({domain_id => @{$domains}[0]->{'id'}, vlan_tag => $tag, vlan_name => $name, vlan_description => $description});
+  $visdb->vlan_alloc({domain_id => @{$domains}[0]->{'id'}, type_id => @{$type}[0]->{'id'}, vlan_tag => $tag, vlan_name => $name, vlan_description => $description});
   return 0;
 }
 
@@ -136,6 +137,7 @@ sub free_vlan {
   }
   if(not defined $vlan_tag) {
     print "Missing argument --tag\n";
+    return -1;
   }
 
   my $domains = $visdb->get_domain({domain_name => $domain_name, domain_serial => $domain_serial});
